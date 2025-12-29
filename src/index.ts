@@ -1,56 +1,21 @@
-#!/usr/bin/env node
-
-/**
- * AI Agent Ecosystem - Unified Platform
- * Main entry point for the comprehensive AI agent ecosystem
- */
-
-import 'dotenv/config';
-import { loadAllModules, getModuleRegistry } from './modules';
+import { moduleRegistry } from './modules/core/registry';
+import { AgentsModule } from './modules/agents';
 
 async function main() {
-  console.log('🤖 AI Agent Ecosystem - Unified Platform Starting...');
-  console.log('🌟 InfinityX One Systems - AI Agent Ecosystem v1.0.0');
-  console.log('================================================');
+  // Register modules
+  moduleRegistry.register(new AgentsModule());
 
-  try {
-    // Load and register all modules
-    loadAllModules();
+  // Start all modules
+  await moduleRegistry.startAll();
 
-    // Get the module registry
-    const registry = getModuleRegistry();
-
-    // Start all modules
-    await registry.startAll();
-
-    // Handle graceful shutdown
-    process.on('SIGINT', async () => {
-      console.log('\n🛑 Shutting down gracefully...');
-      await registry.stopAll();
-      process.exit(0);
-    });
-
-    process.on('SIGTERM', async () => {
-      console.log('\n🛑 Shutting down gracefully...');
-      await registry.stopAll();
-      process.exit(0);
-    });
-
-    console.log('✅ AI Agent Ecosystem running successfully');
-    console.log('🔄 All modules active and operational');
-    console.log('🌐 API available at http://localhost:' + (process.env.PORT || 8080));
-    console.log('📊 Monitoring dashboard available');
-    console.log('================================================');
-
-  } catch (error) {
-    console.error('❌ Failed to start AI Agent Ecosystem:', error);
-    process.exit(1);
-  }
+  console.log('🚀 AI Agent Ecosystem Module System Started');
+  console.log('📦 Available modules:', moduleRegistry.list().map(m => m.name));
+  console.log('🤖 Total agents registered:', (await moduleRegistry.executeTask('agents', 'list')).length);
 }
 
-// Start if run directly
+export { moduleRegistry };
+export default main;
+
 if (require.main === module) {
-  main();
+  main().catch(console.error);
 }
-
-export { loadAllModules, getModuleRegistry };
