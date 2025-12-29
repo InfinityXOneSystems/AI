@@ -1,0 +1,19 @@
+{
+  "name": "@infinityx/monitoring",
+  "version": "1.0.0",
+  "description": "Enterprise monitoring and observability for InfinityX",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "winston": "^3.8.0",
+    "prometheus-api-metrics": "^3.2.2",
+    "@opentelemetry/api": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/winston": "^2.4.0"
+  }
+}
