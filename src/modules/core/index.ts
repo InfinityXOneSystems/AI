@@ -8,7 +8,7 @@ export interface ModuleConfig {
   name: string;
   version: string;
   dependencies?: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface AgentModule {
@@ -39,7 +39,7 @@ export interface AgentModule {
   /**
    * Execute a specific task
    */
-  executeTask(taskName: string, params?: any): Promise<any>;
+  executeTask(taskName: string, params?: unknown): Promise<unknown>;
 }
 
 export interface ModuleStatus {
@@ -48,7 +48,7 @@ export interface ModuleStatus {
   uptime?: number;
   lastError?: string;
   tasksCompleted?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface ModuleRegistry {
@@ -64,10 +64,10 @@ export class BaseModule implements AgentModule {
   public name: string;
   public version: string;
   public config: ModuleConfig;
-  protected isRunning: boolean = false;
+  protected isRunning = false;
   protected startTime?: number;
-  protected errorCount: number = 0;
-  protected tasksCompleted: number = 0;
+  protected errorCount = 0;
+  protected tasksCompleted = 0;
 
   constructor(name: string, version: string, config: Partial<ModuleConfig> = {}) {
     this.name = name;
@@ -111,7 +111,7 @@ export class BaseModule implements AgentModule {
     };
   }
 
-  async executeTask(taskName: string, params?: any): Promise<any> {
+  async executeTask(taskName: string, _params?: unknown): Promise<unknown> {
     throw new Error(`Task ${taskName} not implemented in ${this.name}`);
   }
 }

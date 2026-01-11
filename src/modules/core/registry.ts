@@ -81,7 +81,7 @@ export class AgentModuleRegistry implements ModuleRegistry {
     return statuses;
   }
 
-  async executeTask(moduleName: string, taskName: string, params?: any): Promise<any> {
+  async executeTask(moduleName: string, taskName: string, params?: unknown): Promise<unknown> {
     const module = this.get(moduleName);
     if (!module) {
       throw new Error(`Module ${moduleName} not found`);

@@ -84,7 +84,7 @@ export class AgentsModule extends BaseModule {
     super('agents', '1.0.0');
   }
 
-  async executeTask(taskName: string, params?: any): Promise<any> {
+  async executeTask(taskName: string, params?: unknown): Promise<unknown> {
     switch (taskName) {
       case 'list':
         return ALL_AGENTS;
